@@ -1,0 +1,9 @@
+const CampusesActionType = {
+    FETCH_ALL_CAMPUSES: "FETCH_ALL_CAMPUSES",
+    FETCH_CAMPUS: "FETCH_CAMPUS",
+    ADD_CAMPUS: "ADD_CAMPUS",
+    REMOVE_CAMPUS: "REMOVE_CAMPUS",
+    FETCH_CAMPUS_COUNT: "FETCH_CAMPUS_COUNT",
+}
+
+export default CampusesActionType
