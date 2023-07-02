@@ -4,7 +4,6 @@ export const INITIAL_CAMPUSES_STATE = {
   allCampuses: [],
   campus: {},
   count: 0,
-  addedCampus: {},
 };
 
 const campusesReducer = (state = INITIAL_CAMPUSES_STATE, action) => {
@@ -19,8 +18,8 @@ const campusesReducer = (state = INITIAL_CAMPUSES_STATE, action) => {
       return { ...state, count: action.payload };
 
     case CampusesActionType.ADD_CAMPUS:
-      return { ...state, addedCampus: action.payload };
-
+      return { ...state, allCampuses: [...state.allCampuses, action.payload] };
+      
     default:
       return state;
   }

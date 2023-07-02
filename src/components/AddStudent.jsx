@@ -1,6 +1,9 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
-import { addStudentThunk } from "../redux/students/students.actions";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  addStudentThunk,
+  fetchAllStudentsThunk,
+} from "../redux/students/students.actions";
 import { useNavigate } from "react-router-dom";
 import { Form, Row, Col, Button } from "react-bootstrap";
 
@@ -8,10 +11,8 @@ const AddStudent = () => {
   const dispatch = useDispatch();
   const [validated, setValidated] = useState(false);
   const nav = useNavigate();
-
-  const navToStudents = () => {
-    return nav("/students");
-  };
+  const allStudents = useSelector((state) => state.students.allStudents);
+  const [fetchingStudents, setFetchingStudents] = useState(false);
 
   const handleSubmit = (event) => {
     const form = event.currentTarget;
@@ -20,15 +21,32 @@ const AddStudent = () => {
       event.stopPropagation();
     } else {
       addStudent(form.firstName.value, form.lastName.value, form.email.value);
-      navToStudents();
+      event.preventDefault();
     }
-
     setValidated(true);
   };
 
   const addStudent = (firstName, lastName, email) => {
-    return dispatch(addStudentThunk(firstName, lastName, email));
+    dispatch(addStudentThunk(firstName, lastName, email))
+      .then(() => {
+        setFetchingStudents(true);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   };
+
+  useEffect(() => {
+    if (fetchingStudents) {
+      dispatch(fetchAllStudentsThunk())
+        .then(() => {
+          nav(`/students/${allStudents[allStudents.length - 1].id}`);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }
+  }, [dispatch, fetchingStudents, allStudents, nav]);
 
   return (
     <div>

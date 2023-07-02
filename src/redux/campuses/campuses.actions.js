@@ -69,7 +69,7 @@ export const addCampusThunk = (name, address) => {
       console.log("REDUX THUNK API CALL AddCampus===>", response.data);
       dispatch(addCampus(response.data));
       dispatch(fetchAllCampusesThunk());
-      dispatch(fetchCampusCountThunk());
+      dispatch(fetchCampusCountThunk());    
     } catch (error) {
       console.error(error);
     }

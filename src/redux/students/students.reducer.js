@@ -17,6 +17,9 @@ const studentsReducer = (state = INITIAL_STUDENTS_STATE, action) => {
     case StudentsActionType.FETCH_STUDENT_COUNT:
       return { ...state, count: action.payload };
 
+    case StudentsActionType.ADD_STUDENT:
+      return { ...state, allStudents: [...state.allStudents, action.payload] };
+
     default:
       return state;
   }

@@ -13,7 +13,7 @@ const Campus = () => {
   const fetchCampus = () => {
     return dispatch(fetchCampusThunk(campusId));
   };
-
+            
   useEffect(() => {
     fetchCampus();
   }, []);

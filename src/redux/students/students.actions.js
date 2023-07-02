@@ -57,8 +57,9 @@ export const fetchStudentCountThunk = () => {
   };
 };
 
-export const addStudent = () => ({
+export const addStudent = (payload) => ({
   type: StudentsActionType.ADD_STUDENT,
+  payload,
 });
 
 export const addStudentThunk = (firstName, lastName, email) => {
