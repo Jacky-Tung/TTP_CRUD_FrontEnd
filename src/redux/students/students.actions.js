@@ -62,11 +62,11 @@ export const addStudent = (payload) => ({
   payload,
 });
 
-export const addStudentThunk = (firstName, lastName, email) => {
+export const addStudentThunk = (firstName, lastName, email, gpa, imageUrl) => {
   return async (dispatch) => {
     try {
       const response = await axios.post(
-        `http://localhost:8080/api/students?firstName=${firstName}&lastName=${lastName}&email=${email}`
+        `http://localhost:8080/api/students?firstName=${firstName}&lastName=${lastName}&email=${email}&gpa=${gpa}&imageUrl=${imageUrl}`
       );
       console.log("REDUX THUNK API CALL AddStudent===>", response.data);
       dispatch(addStudent(response.data));

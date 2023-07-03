@@ -1,5 +1,5 @@
 import React from "react";
-import { Button } from "react-bootstrap";
+import { Button, Image } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { removeStudentThunk } from "../redux/students/students.actions";
@@ -29,6 +29,7 @@ const ListStudents = (props) => {
                         Remove
                       </Button>
                     </h1>
+                    <Image src={item.imageUrl}></Image>
                   </div>
                 );
               })}

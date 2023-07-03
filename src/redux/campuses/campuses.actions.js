@@ -60,11 +60,11 @@ export const addCampus = (payload) => ({
   payload,
 });
 
-export const addCampusThunk = (name, address) => {
+export const addCampusThunk = (name, address, description, imageUrl) => {
   return async (dispatch) => {
     try {
       const response = await axios.post(
-        `http://localhost:8080/api/campuses?name=${name}&address=${address}`
+        `http://localhost:8080/api/campuses?name=${name}&address=${address}&description=${description}&imageUrl=${imageUrl}`
       );
       console.log("REDUX THUNK API CALL AddCampus===>", response.data);
       dispatch(addCampus(response.data));

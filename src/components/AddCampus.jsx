@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addCampusThunk, fetchAllCampusesThunk } from "../redux/campuses/campuses.actions";
+import {
+  addCampusThunk,
+  fetchAllCampusesThunk,
+} from "../redux/campuses/campuses.actions";
 import { useNavigate } from "react-router-dom";
 import { Form, Row, Col, Button } from "react-bootstrap";
 
@@ -10,22 +13,27 @@ const AddCampus = () => {
   const nav = useNavigate();
   const allCampuses = useSelector((state) => state.campuses.allCampuses);
   const [fetchingCampuses, setFetchingCampuses] = useState(false);
+  const [selectedImage, setSelectedImage] = useState(null);
+
+  const handleImageChange = (event) => {
+    const file = event.target.files[0];
+    setSelectedImage(file);
+  };
 
   const handleSubmit = (event) => {
     const form = event.currentTarget;
     if (form.checkValidity() === false) {
       event.preventDefault();
       event.stopPropagation();
-    } 
-    else{
-      addCampus(form.campusName.value, form.campusAddress.value);
+    } else {
+      addCampus(form.campusName.value, form.campusAddress.value, form.description.value);
       event.preventDefault();
     }
     setValidated(true);
   };
 
-  const addCampus = (name, address) => {
-    dispatch(addCampusThunk(name, address))
+  const addCampus = (name, address, description) => {
+    dispatch(addCampusThunk(name, address, description, selectedImage))
       .then(() => {
         setFetchingCampuses(true);
       })
@@ -39,7 +47,7 @@ const AddCampus = () => {
       dispatch(fetchAllCampusesThunk())
         .then(() => {
           nav(`/campuses/${allCampuses[allCampuses.length - 1].id}`);
-        }) 
+        })
         .catch((error) => {
           console.error(error);
         });
@@ -48,7 +56,7 @@ const AddCampus = () => {
 
   const cancel = () => {
     nav(`/campuses`);
-  }
+  };
 
   return (
     <div>
@@ -86,11 +94,19 @@ const AddCampus = () => {
               type="text"
               placeholder="description"
               defaultValue=""
-              name="campusDescription"
+              name="description"
             />
-            <Form.Control.Feedback type="valid">
-              Optional
-            </Form.Control.Feedback>
+            <Form.Control.Feedback type="valid">Optional</Form.Control.Feedback>
+          </Form.Group>
+          <Form.Group className="position-relative mb-3">
+            <Form.Label>Upload Campus Image</Form.Label>
+            <Form.Control
+              name="image"
+              type="file"
+              onChange={handleImageChange}
+              accept="image/*"
+              defaultValue={null}
+            ></Form.Control>
           </Form.Group>
         </Row>
         <Button type="submit">Add Campus</Button>
