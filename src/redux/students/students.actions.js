@@ -94,3 +94,29 @@ export const removeStudentThunk = (pk) => {
     }
   };
 };
+
+export const editStudent = () => ({
+  type: StudentsActionType.EDIT_STUDENT,
+});
+
+export const editStudentThunk = (
+  firstName,
+  lastName,
+  email,
+  gpa,
+  imageUrl,
+  pk,
+  campusId
+) => {
+  return async (dispatch) => {
+    try {
+      const response = await axios.put(
+        `http://localhost:8080/api/students?firstName=${firstName}&lastName=${lastName}&email=${email}&imageUrl=${imageUrl}&gpa=${gpa}&pk=${pk}&campusId=${campusId}`
+      );
+      console.log("REDUX THUNK API CALL EditStudent===>", response.data);
+      dispatch(fetchAllStudentsThunk());
+    } catch (error) {
+      console.error(error);
+    }
+  };
+};

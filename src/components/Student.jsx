@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useParams } from "react-router-dom";
-import { Image } from "react-bootstrap";
+import { useNavigate, useParams } from "react-router-dom";
+import { Button, Image } from "react-bootstrap";
 import { fetchStudentThunk } from "../redux/students/students.actions";
 import { Link } from "react-router-dom";
 
@@ -11,6 +11,8 @@ const Student = () => {
   console.log("Campus", campus);
   const { studentId } = useParams();
   const dispatch = useDispatch();
+  const nav = useNavigate();
+
   const fetchStudent = () => {
     return dispatch(fetchStudentThunk(studentId));
   };
@@ -18,6 +20,10 @@ const Student = () => {
   useEffect(() => {
     fetchStudent();
   }, []);
+
+  const editStudent = () => {
+    return nav(`/editStudent/${studentId}`);
+  };
 
   return (
     <div>
@@ -36,6 +42,7 @@ const Student = () => {
           ) : (
             <h5>This student is not registered to a campus.</h5>
           )}
+          <Button onClick={editStudent}>Edit Student</Button>
         </div>
       ) : (
         <h1>Loading...</h1>

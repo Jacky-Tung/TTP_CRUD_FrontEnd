@@ -107,6 +107,7 @@ const AddCampus = () => {
               accept="image/*"
               defaultValue={null}
             ></Form.Control>
+            <Form.Control.Feedback type="valid">Optional</Form.Control.Feedback>
           </Form.Group>
         </Row>
         <Button type="submit">Add Campus</Button>

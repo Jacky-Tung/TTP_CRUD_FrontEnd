@@ -4,6 +4,7 @@ const CampusesActionType = {
     ADD_CAMPUS: "ADD_CAMPUS",
     REMOVE_CAMPUS: "REMOVE_CAMPUS",
     FETCH_CAMPUS_COUNT: "FETCH_CAMPUS_COUNT",
+    EDIT_CAMPUS: "EDIT_CAMPUS",
 }
 
 export default CampusesActionType

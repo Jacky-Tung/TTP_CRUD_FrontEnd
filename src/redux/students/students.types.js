@@ -4,6 +4,7 @@ const StudentsActionType = {
     ADD_STUDENT: "ADD_STUDENT",
     REMOVE_STUDENT: "REMOVE_STUDENT",
     FETCH_STUDENT_COUNT: "FETCH_STUDENT_COUNT",
+    EDIT_STUDENT: "EDIT_STUDENT",
 }
 
 export default StudentsActionType

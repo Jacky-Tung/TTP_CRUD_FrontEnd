@@ -9,6 +9,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import AddCampus from "../components/AddCampus";
 import AddStudent from "../components/AddStudent";
+import EditStudent from "../components/EditStudent";
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
         <Route path="/students/:studentId" element={<Student />} />
         <Route path="/addCampus" element={<AddCampus />} />
         <Route path="/addStudent" element={<AddStudent />} />
+        <Route path="/editStudent/:studentId" element={<EditStudent />} />
         <Route path="*" element={<UndefinedRoute />} />
       </Routes>
     </Router>

@@ -121,6 +121,7 @@ const AddStudent = () => {
               name="gpa"
               defaultValue={null}
             />
+            <Form.Control.Feedback type="valid">Optional</Form.Control.Feedback>
           </Form.Group>
           <Form.Group className="position-relative mb-3">
             <Form.Label>Upload Student Image</Form.Label>
@@ -131,6 +132,7 @@ const AddStudent = () => {
               accept="image/*"
               defaultValue={null}
             ></Form.Control>
+            <Form.Control.Feedback type="valid">Optional</Form.Control.Feedback>
           </Form.Group>
         </Row>
         <Button type="submit">Add Student</Button>
