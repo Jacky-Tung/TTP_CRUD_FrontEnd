@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { fetchCampusThunk } from "../redux/campuses/campuses.actions";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { Button, Image } from "react-bootstrap";
+import { removeStudentFromCampusThunk } from "../redux/students/students.actions";
 
 const Campus = () => {
   const { campus, students } = useSelector((state) => state.campuses.campus);
@@ -18,7 +19,7 @@ const Campus = () => {
 
   useEffect(() => {
     fetchCampus();
-  }, []);
+  }, [students]);
 
   const editCampus = () => {
     return nav(`/editCampus/${campusId}`);
@@ -47,6 +48,22 @@ const Campus = () => {
                   <Link to={`/students/${student.id}`}>
                     {student.firstName} {student.lastName}
                   </Link>
+                  <Button
+                    onClick={() => {
+                      return dispatch(
+                        removeStudentFromCampusThunk(
+                          student.firstName,
+                          student.lastName,
+                          student.email,
+                          student.gpa,
+                          student.imageUrl,
+                          student.id,
+                        )
+                      );
+                    }}
+                  >
+                    Remove
+                  </Button>
                 </h3>
               </div>
             );

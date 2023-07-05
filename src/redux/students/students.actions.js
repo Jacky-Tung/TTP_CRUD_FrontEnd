@@ -120,3 +120,31 @@ export const editStudentThunk = (
     }
   };
 };
+
+export const removeStudentFromCampus = () => ({
+  type: StudentsActionType.REMOVE_STUDENT_FROM_CAMPUS,
+});
+
+export const removeStudentFromCampusThunk = (
+  firstName,
+  lastName,
+  email,
+  gpa,
+  imageUrl,
+  pk
+) => {
+  return async (dispatch) => {
+    try {
+      const response = await axios.put(
+        `http://localhost:8080/api/students/remove?firstName=${firstName}&lastName=${lastName}&email=${email}&imageUrl=${imageUrl}&gpa=${gpa}&pk=${pk}`
+      );
+      console.log(
+        "REDUX THUNK API CALL RemoveStudentFromCampus===>",
+        response.data
+      );
+      dispatch(fetchAllStudentsThunk());
+    } catch (error) {
+      console.error(error);
+    }
+  };
+};
