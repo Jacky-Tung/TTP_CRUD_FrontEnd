@@ -92,3 +92,27 @@ export const removeCampusThunk = (pk) => {
     }
   };
 };
+
+export const editCampus = () => ({
+  type: CampusesActionType.EDIT_CAMPUS,
+});
+
+export const editCampusThunk = (
+  name,
+  address,
+  description,
+  imageUrl,
+  pk,
+) => {
+  return async (dispatch) => {
+    try {
+      const response = await axios.put(
+        `http://localhost:8080/api/campuses?name=${name}&address=${address}&description=${description}&imageUrl=${imageUrl}&pk=${pk}`
+      );
+      console.log("REDUX THUNK API CALL EditCampus===>", response.data);
+      dispatch(fetchAllCampusesThunk());
+    } catch (error) {
+      console.error(error);
+    }
+  };
+};

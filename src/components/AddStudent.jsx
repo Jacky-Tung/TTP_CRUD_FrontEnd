@@ -72,7 +72,7 @@ const AddStudent = () => {
       <Form noValidate validated={validated} onSubmit={handleSubmit}>
         <Row className="mb-3">
           <Form.Group as={Col} md="4" controlId="validationCustom01">
-            <Form.Label>First Name</Form.Label>
+            <Form.Label>First Name*</Form.Label>
             <Form.Control
               required
               type="text"
@@ -85,7 +85,7 @@ const AddStudent = () => {
             </Form.Control.Feedback>
           </Form.Group>
           <Form.Group as={Col} md="4" controlId="validationCustom02">
-            <Form.Label>Last Name</Form.Label>
+            <Form.Label>Last Name*</Form.Label>
             <Form.Control
               required
               type="text"
@@ -98,7 +98,7 @@ const AddStudent = () => {
             </Form.Control.Feedback>
           </Form.Group>
           <Form.Group as={Col} md="4" controlId="validationCustom02">
-            <Form.Label>Email</Form.Label>
+            <Form.Label>Email*</Form.Label>
             <Form.Control
               required
               type="text"

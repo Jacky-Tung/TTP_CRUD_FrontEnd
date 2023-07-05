@@ -54,7 +54,8 @@ const EditStudent = () => {
         email,
         gpa,
         selectedImage,
-        studentId
+        studentId,
+        campusId,
       )
     )
       .then(() => {
@@ -67,7 +68,9 @@ const EditStudent = () => {
 
   useEffect(() => {
     fetchStudent();
-    setcampusId(campus.id);
+    setSelectedImage(student.imageUrl);
+    if(campus)
+      setcampusId(campus.id);
     if (fetchingStudents) {
       dispatch(fetchAllStudentsThunk())
         .then(() => {
@@ -84,6 +87,7 @@ const EditStudent = () => {
   };
 
   const handleSelect = (event) => {
+    console.log("Select", event.target.value);
     setcampusId(event.target.value);
   };
 
@@ -153,17 +157,26 @@ const EditStudent = () => {
             ></Form.Control>
             <Form.Control.Feedback type="valid">Optional</Form.Control.Feedback>
           </Form.Group>
-          <Form.Select onChange={handleSelect} value={campusId}>
-            <option key={campus.id} value={campus}>
-              {campus.name}
-            </option>
-            {allCampuses
-              .filter((item) => item.id !== campus.id)
-              .map((item) => (
-                <option key={item.id} value={item}>
-                  {item.name}
+          <Form.Select onChange={handleSelect}>
+            {campus ? (
+              <>
+                <option key={campus.id} value={campus}>
+                  {campus.name}
                 </option>
-              ))}
+                {allCampuses
+                  .filter((item) => item.id !== campus.id)
+                  .map((item) => (
+                    <option value={item.id}>{item.name}</option>
+                  ))}
+              </>
+            ) : (
+              <>
+                <option>Select campus</option>{" "}
+                {allCampuses.map((item) => (
+                  <option value={item.id}>{item.name}</option>
+                ))}
+              </>
+            )}
           </Form.Select>
         </Row>
         <Button type="submit">Edit Student</Button>

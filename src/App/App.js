@@ -10,6 +10,7 @@ import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import AddCampus from "../components/AddCampus";
 import AddStudent from "../components/AddStudent";
 import EditStudent from "../components/EditStudent";
+import EditCampus from "../components/EditCampus";
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
         <Route path="/addCampus" element={<AddCampus />} />
         <Route path="/addStudent" element={<AddStudent />} />
         <Route path="/editStudent/:studentId" element={<EditStudent />} />
+        <Route path="/editCampus/:campusId" element={<EditCampus />} />
         <Route path="*" element={<UndefinedRoute />} />
       </Routes>
     </Router>

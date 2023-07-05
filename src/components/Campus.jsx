@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchCampusThunk } from "../redux/campuses/campuses.actions";
-import { Link, useParams } from "react-router-dom";
-import { Image } from "react-bootstrap";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import { Button, Image } from "react-bootstrap";
 
 const Campus = () => {
   const { campus, students } = useSelector((state) => state.campuses.campus);
@@ -10,13 +10,19 @@ const Campus = () => {
   console.log("students", students);
   const { campusId } = useParams();
   const dispatch = useDispatch();
+  const nav = useNavigate();
+
   const fetchCampus = () => {
     return dispatch(fetchCampusThunk(campusId));
   };
-            
+
   useEffect(() => {
     fetchCampus();
   }, []);
+
+  const editCampus = () => {
+    return nav(`/editCampus/${campusId}`);
+  };
 
   return (
     <div>
@@ -30,6 +36,7 @@ const Campus = () => {
       ) : (
         <h1>Loading...</h1>
       )}
+      <Button onClick={editCampus}>Edit Campus</Button>
       <h1>Students on campus</h1>
       {students && students.length > 0 ? (
         <div>
