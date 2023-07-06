@@ -94,95 +94,107 @@ const EditStudent = () => {
 
   return (
     <div>
-      <Form noValidate validated={validated} onSubmit={handleSubmit}>
-        <Row className="mb-3">
-          <Form.Group as={Col} md="4" controlId="validationCustom01">
-            <Form.Label>First Name</Form.Label>
-            <Form.Control
-              required
-              type="text"
-              placeholder="first name"
-              defaultValue={student.firstName}
-              name="firstName"
-            />
-            <Form.Control.Feedback type="invalid">
-              Please edit student first name.
-            </Form.Control.Feedback>
-          </Form.Group>
-          <Form.Group as={Col} md="4" controlId="validationCustom02">
-            <Form.Label>Last Name</Form.Label>
-            <Form.Control
-              required
-              type="text"
-              placeholder="last name"
-              defaultValue={student.lastName}
-              name="lastName"
-            />
-            <Form.Control.Feedback type="invalid">
-              Please edit student last name.
-            </Form.Control.Feedback>
-          </Form.Group>
-          <Form.Group as={Col} md="4" controlId="validationCustom02">
-            <Form.Label>Email</Form.Label>
-            <Form.Control
-              required
-              type="text"
-              placeholder="email"
-              defaultValue={student.email}
-              name="email"
-            />
-            <Form.Control.Feedback type="invalid">
-              Please edit student email.
-            </Form.Control.Feedback>
-          </Form.Group>
-          <Form.Group as={Col} md="4">
-            <Form.Label>GPA</Form.Label>
-            <Form.Control
-              type="number"
-              step="0.1"
-              min="0"
-              max="4"
-              placeholder="student gpa"
-              name="gpa"
-              defaultValue={student.gpa}
-            />
-            <Form.Control.Feedback type="valid">Optional</Form.Control.Feedback>
-          </Form.Group>
-          <Form.Group className="position-relative mb-3">
-            <Form.Label>Upload Student Image</Form.Label>
-            <Form.Control
-              name="image"
-              type="file"
-              onChange={handleImageChange}
-              accept="image/*"
-            ></Form.Control>
-            <Form.Control.Feedback type="valid">Optional</Form.Control.Feedback>
-          </Form.Group>
-          <Form.Select onChange={handleSelect}>
-            {campus ? (
-              <>
-                <option key={campus.id} value={campus}>
-                  {campus.name}
-                </option>
-                {allCampuses
-                  .filter((item) => item.id !== campus.id)
-                  .map((item) => (
+      <h1 className="header">Edit Student</h1>
+      <div className="form">
+        <Form noValidate validated={validated} onSubmit={handleSubmit}>
+          <Row className="mb-3">
+            <Form.Group as={Col} md="4" controlId="validationCustom01">
+              <Form.Label>First Name</Form.Label>
+              <Form.Control
+                required
+                type="text"
+                placeholder="first name"
+                defaultValue={student.firstName}
+                name="firstName"
+              />
+              <Form.Control.Feedback type="invalid">
+                Please edit student first name.
+              </Form.Control.Feedback>
+            </Form.Group>
+            <Form.Group as={Col} md="4" controlId="validationCustom02">
+              <Form.Label>Last Name</Form.Label>
+              <Form.Control
+                required
+                type="text"
+                placeholder="last name"
+                defaultValue={student.lastName}
+                name="lastName"
+              />
+              <Form.Control.Feedback type="invalid">
+                Please edit student last name.
+              </Form.Control.Feedback>
+            </Form.Group>
+            <Form.Group as={Col} md="4" controlId="validationCustom02">
+              <Form.Label>Email</Form.Label>
+              <Form.Control
+                required
+                type="text"
+                placeholder="email"
+                defaultValue={student.email}
+                name="email"
+              />
+              <Form.Control.Feedback type="invalid">
+                Please edit student email.
+              </Form.Control.Feedback>
+            </Form.Group>
+            <Form.Group as={Col} md="4">
+              <Form.Label>GPA</Form.Label>
+              <Form.Control
+                type="number"
+                step="0.1"
+                min="0"
+                max="4"
+                placeholder="student gpa"
+                name="gpa"
+                defaultValue={student.gpa}
+              />
+              <Form.Control.Feedback type="valid">
+                Optional
+              </Form.Control.Feedback>
+            </Form.Group>
+            <Form.Group className="position-relative mb-3">
+              <Form.Label>Upload Student Image</Form.Label>
+              <Form.Control
+                name="image"
+                type="file"
+                onChange={handleImageChange}
+                accept="image/*"
+              ></Form.Control>
+              <Form.Control.Feedback type="valid">
+                Optional
+              </Form.Control.Feedback>
+            </Form.Group>
+            Campus
+            <Form.Select onChange={handleSelect}>
+              {campus ? (
+                <>
+                  <option key={campus.id} value={campus}>
+                    {campus.name}
+                  </option>
+                  {allCampuses
+                    .filter((item) => item.id !== campus.id)
+                    .map((item) => (
+                      <option value={item.id}>{item.name}</option>
+                    ))}
+                </>
+              ) : (
+                <>
+                  <option>Select campus</option>{" "}
+                  {allCampuses.map((item) => (
                     <option value={item.id}>{item.name}</option>
                   ))}
-              </>
-            ) : (
-              <>
-                <option>Select campus</option>{" "}
-                {allCampuses.map((item) => (
-                  <option value={item.id}>{item.name}</option>
-                ))}
-              </>
-            )}
-          </Form.Select>
-        </Row>
-        <Button type="submit">Edit Student</Button>
-        <Button onClick={cancel}>Cancel</Button>
-      </Form>
+                </>
+              )}
+            </Form.Select>
+          </Row>
+          <div className="formButton">
+            <Button onClick={cancel} style={{ margin: "20px" }}>
+              Cancel
+            </Button>
+            <Button type="submit">Edit Student</Button>
+          </div>
+        </Form>
+      </div>
     </div>
   );
 };
