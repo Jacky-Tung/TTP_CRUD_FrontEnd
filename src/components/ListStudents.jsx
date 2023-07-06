@@ -26,7 +26,9 @@ const ListStudents = (props) => {
                     ></Image>
                     <Card.Body>
                       <Card.Title>
-                        <Link to={`/students/${item.id}`}>{item.firstName} {item.lastName}</Link>
+                        <Link to={`/students/${item.id}`}>
+                          {item.firstName} {item.lastName}
+                        </Link>
                         <Button
                           onClick={() => {
                             return dispatch(removeStudentThunk(item.id));

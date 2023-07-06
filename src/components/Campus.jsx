@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchCampusThunk } from "../redux/campuses/campuses.actions";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { Button, Image, Form } from "react-bootstrap";
+import { Button, Image, Form, Col, Row, Card } from "react-bootstrap";
 import {
   removeStudentFromCampusThunk,
   fetchAllStudentsThunk,
@@ -44,67 +44,103 @@ const Campus = () => {
     <div>
       {campus ? (
         <div key={campus.id}>
-          <h1>{campus.name}</h1>
-          <Image src={campus.imageUrl}></Image>
-          <h2>{campus.address}</h2>
-          <h2>{campus.description}</h2>
-        </div>
-      ) : (
-        <h1>Loading...</h1>
-      )}
-      <Button onClick={editCampus}>Edit Campus</Button>
-      <h1>Students on campus</h1>
-      <Form.Select onChange={handleSelect} value={studentId}>
-        <option value=''>Select Student</option>
-        {allStudents &&
-          allStudents
-            .filter((student) => !student.campusId)
-            .map((student) => (
-              <option value={student.id}>
-                {student.firstName} {student.lastName}
-              </option>
-            ))}
-      </Form.Select>
-      <Button
-        onClick={() => {
-          return dispatch(addStudentToCampusThunk(studentId, campusId));
-        }}
-      >
-        Add Student To Campus
-      </Button>
-      {students && students.length > 0 ? (
-        <div>
-          {students.map((student) => {
-            return (
-              <div key={student.id}>
-                <h3>
-                  <Link to={`/students/${student.id}`}>
-                    {student.firstName} {student.lastName}
-                  </Link>
-                  <Button
-                    onClick={() => {
-                      return dispatch(
-                        removeStudentFromCampusThunk(
-                          student.firstName,
-                          student.lastName,
-                          student.email,
-                          student.gpa,
-                          student.imageUrl,
-                          student.id
-                        )
-                      );
-                    }}
-                  >
-                    Remove
-                  </Button>
-                </h3>
+          <Row>
+            <Col
+              md
+              className="header"
+              style={{ marginTop: "50px", marginLeft: "90px" }}
+            >
+              <Image
+                src={campus.imageUrl}
+                style={{ width: "400px", height: "auto" }}
+                rounded
+              ></Image>
+            </Col>
+            <Col sm className="header" style={{ marginRight: "90px" }}>
+              <div className="header">
+                <h1>{campus.name}</h1>
+                <h2>{campus.address}</h2>
               </div>
-            );
-          })}
+            </Col>
+          </Row>
+          <h2 className="header">{campus.description}</h2>
         </div>
       ) : (
-        <h5>There are no students currently registered to this campus.</h5>
+        <h1 className="header">Loading...</h1>
       )}
+      <div style={{ marginLeft: "50px", marginRight: "50px" }}>
+        <h3 className="header">Students Not Enrolled In Any Campus</h3>
+        <Form.Select onChange={handleSelect} value={studentId}>
+          <option value="">Select Student</option>
+          {allStudents &&
+            allStudents
+              .filter((student) => !student.campusId)
+              .map((student) => (
+                <option value={student.id}>
+                  {student.firstName} {student.lastName}
+                </option>
+              ))}
+        </Form.Select>
+        <div className="formButton">
+          <Button
+            onClick={() => {
+              return dispatch(addStudentToCampusThunk(studentId, campusId));
+            }}
+            style={{ margin: "20px" }}
+          >
+            Add Student To Campus
+          </Button>
+          <Button onClick={editCampus}>Edit Campus</Button>
+        </div>
+      </div>
+      <div style={{marginLeft: "20px", marginRight: "20px"}}>
+        <h2 className="header">Students on campus</h2>
+        {students && students.length > 0 ? (
+          <div className="list">
+            {students.map((student) => {
+              return (
+                <Col>
+                  <Card
+                    key={student.id}
+                    style={{ width: "202px", height: "290px" }}
+                  >
+                    <Image
+                      src={student.imageUrl}
+                      style={{ width: "200px", height: "175px" }}
+                    ></Image>
+                    <Card.Body>
+                      <Card.Title>
+                        <Link to={`/students/${student.id}`}>
+                          {student.firstName} {student.lastName}
+                        </Link>
+                        <Button
+                          onClick={() => {
+                            return dispatch(
+                              removeStudentFromCampusThunk(
+                                student.firstName,
+                                student.lastName,
+                                student.email,
+                                student.gpa,
+                                student.imageUrl,
+                                student.id
+                              )
+                            );
+                          }}
+                          className="cardButton"
+                        >
+                          Remove
+                        </Button>
+                      </Card.Title>
+                    </Card.Body>
+                  </Card>
+                </Col>
+              );
+            })}
+          </div>
+        ) : (
+          <h5 className="header">There are no students currently registered to this campus.</h5>
+        )}
+      </div>
     </div>
   );
 };
