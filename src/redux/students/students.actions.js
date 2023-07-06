@@ -148,3 +148,21 @@ export const removeStudentFromCampusThunk = (
     }
   };
 };
+
+export const addStudentToCampus = () => ({
+  type: StudentsActionType.ADD_STUDENT_TO_CAMPUS,
+});
+
+export const addStudentToCampusThunk = (pk, campusId) => {
+  return async (dispatch) => {
+    try {
+      const response = await axios.put(
+        `http://localhost:8080/api/students/add?pk=${pk}&campusId=${campusId}`
+      );
+      console.log("REDUX THUNK API CALL AddStudentToCampus===>", response.data);
+      dispatch(fetchAllStudentsThunk());
+    } catch (error) {
+      console.error(error);
+    }
+  };
+};

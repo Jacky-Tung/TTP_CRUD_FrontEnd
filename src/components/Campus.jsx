@@ -1,28 +1,43 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchCampusThunk } from "../redux/campuses/campuses.actions";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { Button, Image } from "react-bootstrap";
-import { removeStudentFromCampusThunk } from "../redux/students/students.actions";
+import { Button, Image, Form } from "react-bootstrap";
+import {
+  removeStudentFromCampusThunk,
+  fetchAllStudentsThunk,
+  addStudentToCampusThunk,
+} from "../redux/students/students.actions";
 
 const Campus = () => {
   const { campus, students } = useSelector((state) => state.campuses.campus);
+  const allStudents = useSelector((state) => state.students.allStudents);
   console.log("campus", campus);
   console.log("students", students);
   const { campusId } = useParams();
   const dispatch = useDispatch();
   const nav = useNavigate();
+  const [studentId, setStudentId] = useState("");
 
   const fetchCampus = () => {
     return dispatch(fetchCampusThunk(campusId));
   };
 
+  const fetchAllStudents = () => {
+    return dispatch(fetchAllStudentsThunk());
+  };
+
   useEffect(() => {
     fetchCampus();
+    fetchAllStudents();
   }, [students]);
 
   const editCampus = () => {
     return nav(`/editCampus/${campusId}`);
+  };
+
+  const handleSelect = (event) => {
+    setStudentId(event.target.value);
   };
 
   return (
@@ -39,6 +54,24 @@ const Campus = () => {
       )}
       <Button onClick={editCampus}>Edit Campus</Button>
       <h1>Students on campus</h1>
+      <Form.Select onChange={handleSelect} value={studentId}>
+        <option value=''>Select Student</option>
+        {allStudents &&
+          allStudents
+            .filter((student) => !student.campusId)
+            .map((student) => (
+              <option value={student.id}>
+                {student.firstName} {student.lastName}
+              </option>
+            ))}
+      </Form.Select>
+      <Button
+        onClick={() => {
+          return dispatch(addStudentToCampusThunk(studentId, campusId));
+        }}
+      >
+        Add Student To Campus
+      </Button>
       {students && students.length > 0 ? (
         <div>
           {students.map((student) => {
@@ -57,7 +90,7 @@ const Campus = () => {
                           student.email,
                           student.gpa,
                           student.imageUrl,
-                          student.id,
+                          student.id
                         )
                       );
                     }}
