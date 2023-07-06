@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchAllStudentsThunk } from "../redux/students/students.actions";
 import ListStudents from "../components/ListStudents";
@@ -14,20 +14,22 @@ const Students = () => {
 
   const navToForm = () => {
     return nav("/addStudent");
-  }
+  };
 
   const fetchAllStudents = () => {
     return dispatch(fetchAllStudentsThunk());
   };
 
   useEffect(() => {
-    fetchAllStudents()
+    fetchAllStudents();
   }, []);
 
   return (
     <div>
-      <h1>All Students</h1>
-      <Button onClick={navToForm}>Add Student</Button>
+      <div className="header">
+        <h1>All Students</h1>
+        <Button onClick={navToForm}>Add Student</Button>
+      </div>
       <ListStudents list={allStudents}></ListStudents>
     </div>
   );

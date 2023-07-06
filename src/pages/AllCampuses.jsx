@@ -26,8 +26,10 @@ const Campuses = () => {
 
   return (
     <div>
-      <h1>All Campuses</h1>
-      <Button onClick={navToForm}>Add Campus</Button>
+      <div className="header">
+        <h1>All Campuses</h1>
+        <Button onClick={navToForm}>Add Campus</Button>
+      </div>
       <ListCampuses list={allCampuses} />
     </div>
   );

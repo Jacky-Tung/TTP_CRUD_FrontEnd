@@ -27,22 +27,19 @@ const AddStudent = () => {
       event.preventDefault();
       event.stopPropagation();
     } else {
-      addStudent(form.firstName.value, form.lastName.value, form.email.value, form.gpa.value);
+      addStudent(
+        form.firstName.value,
+        form.lastName.value,
+        form.email.value,
+        form.gpa.value
+      );
       event.preventDefault();
     }
     setValidated(true);
   };
 
   const addStudent = (firstName, lastName, email, gpa) => {
-    dispatch(
-      addStudentThunk(
-        firstName,
-        lastName,
-        email,
-        gpa,
-        selectedImage,
-      )
-    )
+    dispatch(addStudentThunk(firstName, lastName, email, gpa, selectedImage))
       .then(() => {
         setFetchingStudents(true);
       })
@@ -69,75 +66,86 @@ const AddStudent = () => {
 
   return (
     <div>
-      <Form noValidate validated={validated} onSubmit={handleSubmit}>
-        <Row className="mb-3">
-          <Form.Group as={Col} md="4" controlId="validationCustom01">
-            <Form.Label>First Name*</Form.Label>
-            <Form.Control
-              required
-              type="text"
-              placeholder="first name"
-              defaultValue=""
-              name="firstName"
-            />
-            <Form.Control.Feedback type="invalid">
-              Please enter student first name.
-            </Form.Control.Feedback>
-          </Form.Group>
-          <Form.Group as={Col} md="4" controlId="validationCustom02">
-            <Form.Label>Last Name*</Form.Label>
-            <Form.Control
-              required
-              type="text"
-              placeholder="last name"
-              defaultValue=""
-              name="lastName"
-            />
-            <Form.Control.Feedback type="invalid">
-              Please enter student last name.
-            </Form.Control.Feedback>
-          </Form.Group>
-          <Form.Group as={Col} md="4" controlId="validationCustom02">
-            <Form.Label>Email*</Form.Label>
-            <Form.Control
-              required
-              type="text"
-              placeholder="email"
-              defaultValue=""
-              name="email"
-            />
-            <Form.Control.Feedback type="invalid">
-              Please enter student email.
-            </Form.Control.Feedback>
-          </Form.Group>
-          <Form.Group as={Col} md="4">
-            <Form.Label>GPA</Form.Label>
-            <Form.Control
-              type="number"
-              step="0.1"
-              min="0"
-              max="4"
-              placeholder="student gpa"
-              name="gpa"
-              defaultValue={null}
-            />
-            <Form.Control.Feedback type="valid">Optional</Form.Control.Feedback>
-          </Form.Group>
-          <Form.Group className="position-relative mb-3">
-            <Form.Label>Upload Student Image</Form.Label>
-            <Form.Control
-              name="image"
-              type="file"
-              onChange={handleImageChange}
-              accept="image/*"
-              defaultValue={null}
-            ></Form.Control>
-            <Form.Control.Feedback type="valid">Optional</Form.Control.Feedback>
-          </Form.Group>
-        </Row>
-        <Button type="submit">Add Student</Button>
-        <Button onClick={cancel}>Cancel</Button>
-      </Form>
+      <h1 className="header">Add Student</h1>
+      <div className="form">
+        <Form noValidate validated={validated} onSubmit={handleSubmit}>
+          <Row className="mb-3">
+            <Form.Group as={Col} md="4" controlId="validationCustom01">
+              <Form.Label>First Name*</Form.Label>
+              <Form.Control
+                required
+                type="text"
+                placeholder="first name"
+                defaultValue=""
+                name="firstName"
+              />
+              <Form.Control.Feedback type="invalid">
+                Please enter student first name.
+              </Form.Control.Feedback>
+            </Form.Group>
+            <Form.Group as={Col} md="4" controlId="validationCustom02">
+              <Form.Label>Last Name*</Form.Label>
+              <Form.Control
+                required
+                type="text"
+                placeholder="last name"
+                defaultValue=""
+                name="lastName"
+              />
+              <Form.Control.Feedback type="invalid">
+                Please enter student last name.
+              </Form.Control.Feedback>
+            </Form.Group>
+            <Form.Group as={Col} md="4" controlId="validationCustom02">
+              <Form.Label>Email*</Form.Label>
+              <Form.Control
+                required
+                type="text"
+                placeholder="email"
+                defaultValue=""
+                name="email"
+              />
+              <Form.Control.Feedback type="invalid">
+                Please enter student email.
+              </Form.Control.Feedback>
+            </Form.Group>
+            <Form.Group as={Col} md="4">
+              <Form.Label>GPA</Form.Label>
+              <Form.Control
+                type="number"
+                step="0.1"
+                min="0"
+                max="4"
+                placeholder="student gpa"
+                name="gpa"
+                defaultValue={null}
+              />
+              <Form.Control.Feedback type="valid">
+                Optional
+              </Form.Control.Feedback>
+            </Form.Group>
+            <Form.Group className="position-relative mb-3">
+              <Form.Label>Upload Student Image</Form.Label>
+              <Form.Control
+                name="image"
+                type="file"
+                onChange={handleImageChange}
+                accept="image/*"
+                defaultValue={null}
+              ></Form.Control>
+              <Form.Control.Feedback type="valid">
+                Optional
+              </Form.Control.Feedback>
+            </Form.Group>
+          </Row>
+          <div className="formButton">
+            <Button onClick={cancel} style={{ margin: "20px" }}>
+              Cancel
+            </Button>
+            <Button type="submit">Add Student</Button>
+          </div>
+        </Form>
+      </div>
     </div>
   );
 };

@@ -6,21 +6,28 @@ import Student from "../components/Student";
 import Home from "../pages/Home";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import AddCampus from "../components/AddCampus";
 import AddStudent from "../components/AddStudent";
 import EditStudent from "../components/EditStudent";
 import EditCampus from "../components/EditCampus";
+import { Nav } from "react-bootstrap";
 
 function App() {
   return (
     <Router>
       <div className="App">
-        <nav>
-          <Link to="/">Home</Link>
-          <Link to="/campuses">Campuses</Link>
-          <Link to="/students">Students</Link>
-        </nav>
+        <Nav variant="pills" defaultActiveKey="/">
+          <Nav.Item>
+            <Nav.Link href="/">Home</Nav.Link>
+          </Nav.Item>
+          <Nav.Item>
+            <Nav.Link href="/campuses">Campuses</Nav.Link>
+          </Nav.Item>
+          <Nav.Item>
+            <Nav.Link href="/students">Students</Nav.Link>
+          </Nav.Item>
+        </Nav>
       </div>
       <Routes>
         <Route path="/" element={<Home />} />

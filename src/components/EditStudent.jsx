@@ -7,6 +7,7 @@ import {
 } from "../redux/students/students.actions";
 import { useNavigate, useParams } from "react-router-dom";
 import { Form, Row, Col, Button } from "react-bootstrap";
+import { fetchAllCampusesThunk } from "../redux/campuses/campuses.actions";
 
 const EditStudent = () => {
   const dispatch = useDispatch();
@@ -55,7 +56,7 @@ const EditStudent = () => {
         gpa,
         selectedImage,
         studentId,
-        campusId,
+        campusId
       )
     )
       .then(() => {
@@ -68,9 +69,9 @@ const EditStudent = () => {
 
   useEffect(() => {
     fetchStudent();
+    dispatch(fetchAllCampusesThunk());
     setSelectedImage(student.imageUrl);
-    if(campus)
-      setcampusId(campus.id);
+    if (campus) setcampusId(campus.id);
     if (fetchingStudents) {
       dispatch(fetchAllStudentsThunk())
         .then(() => {
