@@ -46,7 +46,9 @@ export const fetchCampusCount = (payload) => ({
 export const fetchCampusCountThunk = () => {
   return async (dispatch) => {
     try {
-      const response = await axios.get(`http://localhost:8080/api/campuses/count`);
+      const response = await axios.get(
+        `http://localhost:8080/api/campuses/count`
+      );
       console.log("REDUX THUNK API CALL CampusCount===>", response.data);
       dispatch(fetchCampusCount(response.data));
     } catch (error) {
@@ -63,13 +65,18 @@ export const addCampus = (payload) => ({
 export const addCampusThunk = (name, address, description, imageUrl) => {
   return async (dispatch) => {
     try {
-      const response = await axios.post(
-        `http://localhost:8080/api/campuses?name=${name}&address=${address}&description=${description}&imageUrl=${imageUrl}`
-      );
+      let response = "";
+      imageUrl
+        ? (response = await axios.post(
+            `http://localhost:8080/api/campuses?name=${name}&address=${address}&description=${description}&imageUrl=${imageUrl}`
+          ))
+        : (response = await axios.post(
+            `http://localhost:8080/api/campuses?name=${name}&address=${address}&description=${description}`
+          ));
       console.log("REDUX THUNK API CALL AddCampus===>", response.data);
       dispatch(addCampus(response.data));
       dispatch(fetchAllCampusesThunk());
-      dispatch(fetchCampusCountThunk());    
+      dispatch(fetchCampusCountThunk());
     } catch (error) {
       console.error(error);
     }
@@ -97,13 +104,7 @@ export const editCampus = () => ({
   type: CampusesActionType.EDIT_CAMPUS,
 });
 
-export const editCampusThunk = (
-  name,
-  address,
-  description,
-  imageUrl,
-  pk,
-) => {
+export const editCampusThunk = (name, address, description, imageUrl, pk) => {
   return async (dispatch) => {
     try {
       const response = await axios.put(
