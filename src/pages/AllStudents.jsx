@@ -16,13 +16,9 @@ const Students = () => {
     return nav("/addStudent");
   };
 
-  const fetchAllStudents = () => {
-    return dispatch(fetchAllStudentsThunk());
-  };
-
   useEffect(() => {
-    fetchAllStudents();
-  }, []);
+    dispatch(fetchAllStudentsThunk());
+  }, [dispatch]);
 
   return (
     <div>

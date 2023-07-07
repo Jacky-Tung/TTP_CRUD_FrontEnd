@@ -17,10 +17,6 @@ const EditCampus = () => {
   const [selectedImage, setSelectedImage] = useState(null);
   const { campusId } = useParams();
 
-  const fetchCampus = () => {
-    return dispatch(fetchCampusThunk(campusId));
-  };
-
   const handleImageChange = (event) => {
     const file = event.target.files[0].name;
     console.log(file);
@@ -56,7 +52,7 @@ const EditCampus = () => {
   };
 
   useEffect(() => {
-    fetchCampus();
+    dispatch(fetchCampusThunk(campusId));
     setSelectedImage(campus.imageUrl);
     if (fetchingCampuses) {
       dispatch(fetchAllCampusesThunk())
@@ -67,7 +63,7 @@ const EditCampus = () => {
           console.error(error);
         });
     }
-  }, [dispatch, fetchingCampuses, nav, campusId]);
+  }, [dispatch, fetchingCampuses, nav, campusId, campus.imageUrl]);
 
   const cancel = () => {
     nav(`/campuses/${campusId}`);

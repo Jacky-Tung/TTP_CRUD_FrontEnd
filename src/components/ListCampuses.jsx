@@ -1,4 +1,4 @@
-import { Button, Card, Image, Col, Row, Container } from "react-bootstrap";
+import { Button, Card, Image, Col, Container } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { removeCampusThunk } from "../redux/campuses/campuses.actions";

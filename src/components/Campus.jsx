@@ -19,18 +19,10 @@ const Campus = () => {
   const nav = useNavigate();
   const [studentId, setStudentId] = useState("");
 
-  const fetchCampus = () => {
-    return dispatch(fetchCampusThunk(campusId));
-  };
-
-  const fetchAllStudents = () => {
-    return dispatch(fetchAllStudentsThunk());
-  };
-
   useEffect(() => {
-    fetchCampus();
-    fetchAllStudents();
-  }, [students]);
+    dispatch(fetchCampusThunk(campusId));
+    dispatch(fetchAllStudentsThunk());
+  }, [students, campusId, dispatch]);
 
   const editCampus = () => {
     return nav(`/editCampus/${campusId}`);

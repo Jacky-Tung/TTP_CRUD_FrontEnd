@@ -20,10 +20,6 @@ const EditStudent = () => {
   const { studentId } = useParams();
   const [campusId, setcampusId] = useState("");
 
-  const fetchStudent = () => {
-    return dispatch(fetchStudentThunk(studentId));
-  };
-
   const handleImageChange = (event) => {
     const file = event.target.files[0].name;
     console.log(file);
@@ -68,7 +64,7 @@ const EditStudent = () => {
   };
 
   useEffect(() => {
-    fetchStudent();
+    dispatch(fetchStudentThunk(studentId));
     dispatch(fetchAllCampusesThunk());
     setSelectedImage(student.imageUrl);
     if (campus) setcampusId(campus.id);
@@ -81,7 +77,7 @@ const EditStudent = () => {
           console.error(error);
         });
     }
-  }, [dispatch, fetchingStudents, nav, studentId]);
+  }, [dispatch, fetchingStudents, nav, studentId, campus, student.imageUrl]);
 
   const cancel = () => {
     nav(`/students/${studentId}`);

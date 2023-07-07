@@ -13,13 +13,9 @@ const Student = () => {
   const dispatch = useDispatch();
   const nav = useNavigate();
 
-  const fetchStudent = () => {
-    return dispatch(fetchStudentThunk(studentId));
-  };
-
   useEffect(() => {
-    fetchStudent();
-  }, []);
+    dispatch(fetchStudentThunk(studentId));
+  }, [dispatch, studentId]);
 
   const editStudent = () => {
     return nav(`/editStudent/${studentId}`);

@@ -16,13 +16,9 @@ const Campuses = () => {
     return nav(`/addCampus`);
   };
 
-  const fetchAllCampuses = () => {
-    return dispatch(fetchAllCampusesThunk());
-  };
-
   useEffect(() => {
-    fetchAllCampuses();
-  }, []);
+    dispatch(fetchAllCampusesThunk());
+  }, [dispatch]);
 
   return (
     <div>
