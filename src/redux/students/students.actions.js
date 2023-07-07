@@ -10,7 +10,9 @@ export const fetchAllStudents = (payload) => ({
 export const fetchAllStudentsThunk = () => {
   return async (dispatch) => {
     try {
-      const response = await axios.get(`${process.env.VERCEL_URL}api/students`);
+      const response = await axios.get(
+        `${process.env.REACT_APP_VERCEL_URL}api/students`
+      );
       console.log("REDUX THUNK API CALL AllStudents===>", response.data);
       dispatch(fetchAllStudents(response.data));
     } catch (error) {
@@ -28,7 +30,7 @@ export const fetchStudentThunk = (pk) => {
   return async (dispatch) => {
     try {
       const response = await axios.get(
-        `${process.env.VERCEL_URL}api/students/single?pk=${pk}`
+        `${process.env.REACT_APP_VERCEL_URL}api/students/single?pk=${pk}`
       );
       console.log("REDUX THUNK API CALL Student===>", response.data);
       dispatch(fetchStudent(response.data));
@@ -47,7 +49,7 @@ export const fetchStudentCountThunk = () => {
   return async (dispatch) => {
     try {
       const response = await axios.get(
-        `${process.env.VERCEL_URL}api/students/count`
+        `${process.env.REACT_APP_VERCEL_URL}api/students/count`
       );
       console.log("REDUX THUNK API CALL StudentCount===>", response.data);
       dispatch(fetchStudentCount(response.data));
@@ -65,13 +67,13 @@ export const addStudent = (payload) => ({
 export const addStudentThunk = (firstName, lastName, email, gpa, imageUrl) => {
   return async (dispatch) => {
     try {
-      let response = '';
+      let response = "";
       imageUrl
         ? (response = await axios.post(
-            `${process.env.VERCEL_URL}api/students?firstName=${firstName}&lastName=${lastName}&email=${email}&gpa=${gpa}&imageUrl=${imageUrl}`
+            `${process.env.REACT_APP_VERCEL_URL}api/students?firstName=${firstName}&lastName=${lastName}&email=${email}&gpa=${gpa}&imageUrl=${imageUrl}`
           ))
         : (response = await axios.post(
-            `${process.env.VERCEL_URL}api/students?firstName=${firstName}&lastName=${lastName}&email=${email}&gpa=${gpa}`
+            `${process.env.REACT_APP_VERCEL_URL}api/students?firstName=${firstName}&lastName=${lastName}&email=${email}&gpa=${gpa}`
           ));
       console.log("REDUX THUNK API CALL AddStudent===>", response.data);
       dispatch(addStudent(response.data));
@@ -90,7 +92,9 @@ export const removeStudent = () => ({
 export const removeStudentThunk = (pk) => {
   return async (dispatch) => {
     try {
-      await axios.delete(`${process.env.VERCEL_URL}api/students?pk=${pk}`);
+      await axios.delete(
+        `${process.env.REACT_APP_VERCEL_URL}api/students?pk=${pk}`
+      );
       dispatch(removeStudent());
       dispatch(fetchAllStudentsThunk());
       dispatch(fetchStudentCountThunk());
@@ -116,7 +120,7 @@ export const editStudentThunk = (
   return async (dispatch) => {
     try {
       const response = await axios.put(
-        `${process.env.VERCEL_URL}api/students?firstName=${firstName}&lastName=${lastName}&email=${email}&imageUrl=${imageUrl}&gpa=${gpa}&pk=${pk}&campusId=${campusId}`
+        `${process.env.REACT_APP_VERCEL_URL}api/students?firstName=${firstName}&lastName=${lastName}&email=${email}&imageUrl=${imageUrl}&gpa=${gpa}&pk=${pk}&campusId=${campusId}`
       );
       console.log("REDUX THUNK API CALL EditStudent===>", response.data);
       dispatch(fetchAllStudentsThunk());
@@ -141,7 +145,7 @@ export const removeStudentFromCampusThunk = (
   return async (dispatch) => {
     try {
       const response = await axios.put(
-        `${process.env.VERCEL_URL}api/students/remove?firstName=${firstName}&lastName=${lastName}&email=${email}&imageUrl=${imageUrl}&gpa=${gpa}&pk=${pk}`
+        `${process.env.REACT_APP_VERCEL_URL}api/students/remove?firstName=${firstName}&lastName=${lastName}&email=${email}&imageUrl=${imageUrl}&gpa=${gpa}&pk=${pk}`
       );
       console.log(
         "REDUX THUNK API CALL RemoveStudentFromCampus===>",
@@ -162,7 +166,7 @@ export const addStudentToCampusThunk = (pk, campusId) => {
   return async (dispatch) => {
     try {
       const response = await axios.put(
-        `${process.env.VERCEL_URL}api/students/add?pk=${pk}&campusId=${campusId}`
+        `${process.env.REACT_APP_VERCEL_URL}api/students/add?pk=${pk}&campusId=${campusId}`
       );
       console.log("REDUX THUNK API CALL AddStudentToCampus===>", response.data);
       dispatch(fetchAllStudentsThunk());
