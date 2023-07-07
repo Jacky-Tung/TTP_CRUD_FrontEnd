@@ -6,7 +6,7 @@ import Student from "../components/Student";
 import Home from "../pages/Home";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import AddCampus from "../components/AddCampus";
 import AddStudent from "../components/AddStudent";
 import EditStudent from "../components/EditStudent";
@@ -15,7 +15,7 @@ import { Nav } from "react-bootstrap";
 
 function App() {
   return (
-    <Router>
+    <BrowserRouter>
       <div className="App">
         <Nav variant="pills" defaultActiveKey="/">
           <Nav.Item>
@@ -41,7 +41,7 @@ function App() {
         <Route path="/editCampus/:campusId" element={<EditCampus />} />
         <Route path="*" element={<UndefinedRoute />} />
       </Routes>
-    </Router>
+    </BrowserRouter>
   );
 }
 
