@@ -41,3 +41,11 @@
 .form {
   margin: 40px;
 }
+
+.home {
+  text-align: center;
+  align-self: center;
+  justify-content: center;
+  align-items: center;
+  margin: 175px;
+}
