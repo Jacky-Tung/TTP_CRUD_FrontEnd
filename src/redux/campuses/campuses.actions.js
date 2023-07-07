@@ -10,7 +10,7 @@ export const fetchAllCampuses = (payload) => ({
 export const fetchAllCampusesThunk = () => {
   return async (dispatch) => {
     try {
-      const response = await axios.get(`http://localhost:8080/api/campuses`);
+      const response = await axios.get(`${process.env.VERCEL_URL}api/campuses`);
       console.log("REDUX THUNK API CALL AllCampuses===>", response.data);
       dispatch(fetchAllCampuses(response.data));
     } catch (error) {
@@ -28,7 +28,7 @@ export const fetchCampusThunk = (pk) => {
   return async (dispatch) => {
     try {
       const response = await axios.get(
-        `http://localhost:8080/api/campuses/single?pk=${pk}`
+        `${process.env.VERCEL_URL}api/campuses/single?pk=${pk}`
       );
       console.log("REDUX THUNK API CALL Campus===>", response.data);
       dispatch(fetchCampus(response.data));
@@ -47,7 +47,7 @@ export const fetchCampusCountThunk = () => {
   return async (dispatch) => {
     try {
       const response = await axios.get(
-        `http://localhost:8080/api/campuses/count`
+        `${process.env.VERCEL_URL}api/campuses/count`
       );
       console.log("REDUX THUNK API CALL CampusCount===>", response.data);
       dispatch(fetchCampusCount(response.data));
@@ -68,10 +68,10 @@ export const addCampusThunk = (name, address, description, imageUrl) => {
       let response = "";
       imageUrl
         ? (response = await axios.post(
-            `http://localhost:8080/api/campuses?name=${name}&address=${address}&description=${description}&imageUrl=${imageUrl}`
+            `${process.env.VERCEL_URL}api/campuses?name=${name}&address=${address}&description=${description}&imageUrl=${imageUrl}`
           ))
         : (response = await axios.post(
-            `http://localhost:8080/api/campuses?name=${name}&address=${address}&description=${description}`
+            `${process.env.VERCEL_URL}api/campuses?name=${name}&address=${address}&description=${description}`
           ));
       console.log("REDUX THUNK API CALL AddCampus===>", response.data);
       dispatch(addCampus(response.data));
@@ -90,7 +90,7 @@ export const removeCampus = () => ({
 export const removeCampusThunk = (pk) => {
   return async (dispatch) => {
     try {
-      await axios.delete(`http://localhost:8080/api/campuses?pk=${pk}`);
+      await axios.delete(`${process.env.VERCEL_URL}api/campuses?pk=${pk}`);
       dispatch(removeCampus());
       dispatch(fetchAllCampusesThunk());
       dispatch(fetchCampusCountThunk());
@@ -108,7 +108,7 @@ export const editCampusThunk = (name, address, description, imageUrl, pk) => {
   return async (dispatch) => {
     try {
       const response = await axios.put(
-        `http://localhost:8080/api/campuses?name=${name}&address=${address}&description=${description}&imageUrl=${imageUrl}&pk=${pk}`
+        `${process.env.VERCEL_URL}api/campuses?name=${name}&address=${address}&description=${description}&imageUrl=${imageUrl}&pk=${pk}`
       );
       console.log("REDUX THUNK API CALL EditCampus===>", response.data);
       dispatch(fetchAllCampusesThunk());
