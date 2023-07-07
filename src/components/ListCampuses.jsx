@@ -5,7 +5,7 @@ import { removeCampusThunk } from "../redux/campuses/campuses.actions";
 
 const ListCampuses = ({ list }) => {
   const dispatch = useDispatch();
-
+  console.log(list)
   return (
     <Container fluid>
       {list ? (
